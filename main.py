@@ -1,6 +1,8 @@
 from src import noise_detection, HOG, enhance_saltpepper_image, enhance_speckle_image, enhance_other_image
 import argparse
 import cv2
+import kagglehub
+import os
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
@@ -15,10 +17,26 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
+    if not args.train and not args.test and not args.image:
+        parser.print_help()
+        exit(0)
+
     #########################################
     ## Training/Data colleciton Procedures ##
     #########################################
-    
+
+    # if no data, install it.
+    if not os.path.exists("data/noise"):
+        os.makedirs("data/noise", exist_ok=True)
+        path = kagglehub.dataset_download("dibakarsil/9-classes-noisy-image-dataset", force_download=True)
+        
+        path += "/dataset"
+
+        os.rename(path + "/test_im", "data/noise/test_im")
+        os.rename(path + "/train_im", "data/noise/train_im")
+
+        print("Path to dataset files:", path)
+
     df, generated = noise_detection.gather_noise_examples(generate_train=args.train)
 
     if generated:
