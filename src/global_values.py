@@ -1,1 +1,0 @@
-HOG_SCHEMA = ["hog_mean", "hog_std", "hog_entropy", "max_bin_value", "dominant_bin_ratio", "nonzero_bin_count", "edge_density", "mean_magnitude_per_cell", "hog_kurtosis", "hog_energy", "local_peaks"]
