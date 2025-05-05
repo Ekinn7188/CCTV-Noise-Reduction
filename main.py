@@ -21,9 +21,6 @@ if __name__ == "__main__":
     
     df, generated = noise_detection.gather_noise_examples(generate_train=args.train)
 
-    # noise_detection.visualize_train_data(df)
-    # exit(0)
-
     if generated:
         noise_detection.visualize_train_data(df)
 
